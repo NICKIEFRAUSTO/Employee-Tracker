@@ -1,17 +1,27 @@
+// ---Requirements---
 const mysql = require("mysql");
-
 const inquirer = require("inquirer");
-
 const connection = mysql.createConnection({
   host: "localhost",
   port: 3306,
   user: "root",
   password: "",
-  database: "Emp_Tracker",
+  database: "EmpTracker_DB",
 });
 
-const start = () => {
-  inquirer.prompt([
+
+// ---Connect to mysql---
+connection.connect((err) => {
+  if (err) throw err;
+  console.log(`connected as id ${connection.threadId}\n`);
+   start();
+});
+
+
+// ---Start Prompt ---
+// ---use inquirer to prompt the user---
+function start(){
+  return inquirer.prompt([
     {
       name: "viewAddUpdateRemove",
       type: "list",
@@ -22,15 +32,33 @@ const start = () => {
         "Add a new employee",
         "Update an employee record",
         "Remove an employee",
-        "View the total budget per department",
-      ],
-    },
-    console.log("success!"),
-  ]);
-};
+        "View the total budget per department"
+      ]
+      console.log("success!")
+    }
 
-connection.connect((err) => {
-  if (err) throw err;
-  console.log("connected");
-  start();
-});
+
+// --- use a switch statement for respone of selection--
+
+//   ]).then(response =>{
+// console.log(response)
+// switch (key) {
+//   case value:
+    
+//     break;
+
+//   default:
+//     break;
+// }
+//   }
+
+// };
+
+
+// ---answer functions---
+// viewEmployees()
+// addEmployee()
+// updateEmployee()
+// removeEmployee()
+// viewBudget()
+
