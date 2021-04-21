@@ -1,3 +1,4 @@
+// ---requirements---
 const connection = require("./connection");
 class DB {
   constructor(connection) {

@@ -1,0 +1,3 @@
+USE empTracker_DB;
+INSERT INTO role(id, title, salary, department_id)
+VALUES (001,"sales_person", 80000, 100), (006, "sales_manager", 95000, 100), (002, "technician", 65000, 200), (007, "technician_manager", 75000, 200), (003, "accountant", 60000, 400), (008, "accountant_manager", 75000, 400), (004, "customer_service", 40000, 300), (009, "customer_service_manager", 75000, 300), (005, "recruiter", 50000, 500), (010, "recruiter_manager", 75000, 500);

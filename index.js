@@ -1,9 +1,12 @@
 // ---Requirements---
 const db = require("./db");
 const inquirer = require("inquirer");
+const connection = require("./connection");
 require("console.table");
-
-start();
+connection.connect((err) => {
+  if (err) throw err;
+  start();
+});
 // ---Start Prompt ---
 // ---use inquirer to prompt the user---
 function start() {
@@ -26,36 +29,35 @@ function start() {
       // / --- use a switch statement for response of selection--
     ])
     .then((answer) => {
-      selected = answer.startPrompt;
+      selected = answer.initialPrompt;
       console.log(selected);
 
-      switch (answer.choices) {
+      switch (selected) {
         case "View all employees":
           viewEmployees();
           break;
 
         case "Add an employee record":
-          addemployee();
+          addEmployee();
           break;
 
         case "Update an employee record":
-          updateemployee();
+          updateEmployee();
           break;
 
         case "Remove an employee record":
-          removeemployee();
+          removeEmployee();
           break;
 
         case "View the total budget per department":
-          viewbudget();
+          viewBudget();
           break;
 
-        case "View the total budget per department":
-          viewbudget();
+        case "Exit":
+          exit();
           break;
 
         default:
-          "View all employees";
           viewemployee();
           break;
       }

@@ -1,3 +1,3 @@
 USE empTracker_DB;
-INSERT INTO employee(first_name, last_name, role_id, manager_id)
-VALUES("Bob", "Smith", 002, 998),("Sally", "Thomas", 003, 987), ("April", "Day", 004,985),("Fred", "Hill", 005, 998), ("Martha", "Pinto", 001, 987), ("Eula", "Lee", 002, 985), ("Nathan", "Mills", 003, 998), ("Maria", "Sacco", 004, 987), ("Opie", "Noris", 005, 985), ("Tom","Guzman", 001, 998), ("Joe", "Adams", 002, 987);
+INSERT INTO employee(id, first_name, last_name, role_id, manager_id)
+VALUES(989, "Bob", "Smith", 006),(988, "Sally", "Thomas", 007), (985, "April", "Day", 008),(986, "Fred", "Hill", 009), (987,"Martha", "Pinto", 010), (903, "Eula", "Lee", 001, 989), (904, "Nathan", "Mills", 002, 988), (905, "Maria", "Sacco", 003, 987), (906, "Opie", "Noris", 004, 986), (907, "Tom","Guzman", 005, 985), (908, "Joe", "Adams", 001, 989);

@@ -8,9 +8,9 @@ const connection = mysql.createConnection({
   port: 3306,
   user: "root",
   password: "",
-  database: "EmpTracker_DB",
+  database: "empTracker_DB",
 });
-connection.connect();
+
 connection.query = util.promisify(connection.query);
 
 module.exports = connection;
