@@ -1,64 +1,75 @@
 // ---Requirements---
-const mysql = require("mysql");
+const db = require("./db");
 const inquirer = require("inquirer");
-const connection = mysql.createConnection({
-  host: "localhost",
-  port: 3306,
-  user: "root",
-  password: "",
-  database: "EmpTracker_DB",
-});
+require("console.table");
 
-
-// ---Connect to mysql---
-connection.connect((err) => {
-  if (err) throw err;
-  console.log(`connected as id ${connection.threadId}\n`);
-   start();
-});
-
-
+start();
 // ---Start Prompt ---
 // ---use inquirer to prompt the user---
-function start(){
-  return inquirer.prompt([
-    {
-      name: "viewAddUpdateRemove",
-      type: "list",
-      message:
-        "Welcome to the Employee Tracker, please make a selection from below.",
-      choices: [
-        "View employees",
-        "Add a new employee",
-        "Update an employee record",
-        "Remove an employee",
-        "View the total budget per department"
-      ]
-      console.log("success!")
-    }
+function start() {
+  inquirer
+    .prompt([
+      {
+        name: "initialPrompt",
+        type: "list",
+        message:
+          "Welcome to the Employee Tracker, please make a selection from below.",
+        choices: [
+          "View all employees",
+          "Add an employee record",
+          "Update an employee record",
+          "Remove an employee record",
+          "View the total budget per department",
+          "Exit",
+        ],
+      },
+      // / --- use a switch statement for response of selection--
+    ])
+    .then((answer) => {
+      selected = answer.startPrompt;
+      console.log(selected);
 
+      switch (answer.choices) {
+        case "View all employees":
+          viewEmployees();
+          break;
 
-// --- use a switch statement for respone of selection--
+        case "Add an employee record":
+          addemployee();
+          break;
 
-//   ]).then(response =>{
-// console.log(response)
-// switch (key) {
-//   case value:
-    
-//     break;
+        case "Update an employee record":
+          updateemployee();
+          break;
 
-//   default:
-//     break;
-// }
-//   }
+        case "Remove an employee record":
+          removeemployee();
+          break;
 
-// };
+        case "View the total budget per department":
+          viewbudget();
+          break;
 
+        case "View the total budget per department":
+          viewbudget();
+          break;
+
+        default:
+          "View all employees";
+          viewemployee();
+          break;
+      }
+    });
+}
 
 // ---answer functions---
-// viewEmployees()
+async function viewEmployees() {
+  const employees = await db.findAllEmployees();
+  console.table(employees);
+  start();
+}
+
 // addEmployee()
 // updateEmployee()
 // removeEmployee()
 // viewBudget()
-
