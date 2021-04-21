@@ -105,8 +105,14 @@ async function addDepartment() {
 }
 
 async function addRole() {
-  const dept = await db.addNewRole();
-  console.table(dept);
+  const role = await db.addNewRole();
+  console.table(role);
+  start();
+}
+
+async function addEmployee() {
+  const employee = await db.addNewEmployee();
+  console.table(employee);
   start();
 }
 // updateEmployee()

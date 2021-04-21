@@ -69,6 +69,43 @@ class DB {
         });
       });
   }
+
+  addNewEmployee() {
+    return inquirer
+      .prompt([
+        {
+          name: "addEmpFirstName",
+          type: "input",
+          message: "Enter the new employee first name.",
+        },
+
+        {
+          name: "addEmpLastName",
+          type: "input",
+          message: "Enter the new employee last name.",
+        },
+
+        {
+          name: "addEmpRoleId",
+          type: "input",
+          message: "Enter the new employee role id.",
+        },
+
+        {
+          name: "addEmpMangerId",
+          type: "input",
+          message: "Enter the new employee manager id.",
+        },
+      ])
+      .then((data) => {
+        return this.connection.query("INSERT INTO employee SET ?", {
+          first_name: data.addEmpFirstName,
+          last_name: data.addEmpLastName,
+          role_id: data.addEmpRoleId,
+          manager_id: data.addEmpMangerId,
+        });
+      });
+  }
 }
 
 module.exports = new DB(connection);
