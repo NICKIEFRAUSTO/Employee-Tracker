@@ -22,9 +22,10 @@ function start() {
           "View all departments",
           "View all roles",
           "Add a department",
-          "Add an employee record",
-          "Update an employee record",
-          "Remove an employee record",
+          "Add a role",
+          "Add an employee",
+          "Update an employee",
+          "Remove an employee",
           "View the total budget per department",
           "Exit",
         ],
@@ -52,15 +53,19 @@ function start() {
           addDepartment();
           break;
 
-        case "Add an employee record":
+        case "Add a role":
+          addRole();
+          break;
+
+        case "Add an employee":
           addEmployee();
           break;
 
-        case "Update an employee record":
+        case "Update an employee":
           updateEmployee();
           break;
 
-        case "Remove an employee record":
+        case "Remove an employee":
           removeEmployee();
           break;
 
@@ -95,6 +100,12 @@ async function viewRoles() {
 }
 async function addDepartment() {
   const dept = await db.addNewDepartment();
+  console.table(dept);
+  start();
+}
+
+async function addRole() {
+  const dept = await db.addNewRole();
   console.table(dept);
   start();
 }
