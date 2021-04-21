@@ -19,6 +19,9 @@ function start() {
           "Welcome to the Employee Tracker, please make a selection from below.",
         choices: [
           "View all employees",
+          "View all departments",
+          "View all roles",
+          "Add a department",
           "Add an employee record",
           "Update an employee record",
           "Remove an employee record",
@@ -35,6 +38,18 @@ function start() {
       switch (selected) {
         case "View all employees":
           viewEmployees();
+          break;
+
+        case "View all departments":
+          viewDepartments();
+          break;
+
+        case "View all roles":
+          viewRoles();
+          break;
+
+        case "Add a department":
+          addDepartment();
           break;
 
         case "Add an employee record":
@@ -54,11 +69,7 @@ function start() {
           break;
 
         case "Exit":
-          exit();
-          break;
-
-        default:
-          viewemployee();
+          connectionEnd();
           break;
       }
     });
@@ -71,7 +82,22 @@ async function viewEmployees() {
   start();
 }
 
-// addEmployee()
+async function viewDepartments() {
+  const departments = await db.viewAllDepartments();
+  console.table(departments);
+  start();
+}
+
+async function viewRoles() {
+  const roles = await db.viewAllRoles();
+  console.table(roles);
+  start();
+}
+async function addDepartment() {
+  const dept = await db.addNewDepartment();
+  console.table(dept);
+  start();
+}
 // updateEmployee()
 // removeEmployee()
 // viewBudget()
