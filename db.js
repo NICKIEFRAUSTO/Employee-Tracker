@@ -108,40 +108,45 @@ class DB {
   }
 
   employeeList = () => {
-    connection.query(
-      "SELECT employee.first_name, employee.last_name, employee.role_id, role.title, role.id FROM employee INNER JOIN role ON employee.role_id=role.id;",
-      (err, res) => {
-        if (err) throw err;
-        console.table(res);
-      }
+    return connection.query(
+      "SELECT employee.first_name, employee.last_name, employee.role_id, role.title, employee.id FROM employee INNER JOIN role ON employee.role_id=role.id;"
     );
   };
 
-  updateEmployeeRole() {
+  roleList = () => {
+    return connection.query("SELECT role.id, role.title FROM role;");
+  };
+
+  async updateEmployeeRole() {
     return inquirer
       .prompt([
         {
           name: "selectEmployee",
           type: "list",
           message: "Select the employee you want to update",
-          choices: this.employeeList(),
+          choices: (await this.employeeList()).map((employee) => ({
+            name: employee.first_name,
+            value: employee.id,
+          })),
         },
-
         {
-          name: "selectNewRole",
+          name: "selectRole",
           type: "list",
-          message: "Select a new title for role",
-          choices: this.employeeList(),
+          message: "Select the role you want to update",
+          choices: (await this.roleList()).map((role) => ({
+            name: role.title,
+            value: role.id,
+          })),
         },
       ])
       .then((data) => {
         return this.connection.query("UPDATE employee SET ? WHERE ?", [
           {
-            role_id: data.selectNewRole,
+            role_id: data.selectRole,
           },
 
           {
-            first_name: data.selectEmployee,
+            id: data.selectEmployee,
           },
         ]);
       });
