@@ -7,6 +7,7 @@ connection.connect((err) => {
   if (err) throw err;
   start();
 });
+
 // ---Start Prompt ---
 // ---use inquirer to prompt the user---
 function start() {
@@ -112,6 +113,5 @@ async function updateEmp() {
   start();
 }
 
-// updateEmployee()
 // removeEmployee()
 // viewBudget()

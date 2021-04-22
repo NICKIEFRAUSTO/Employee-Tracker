@@ -107,21 +107,31 @@ class DB {
       });
   }
 
+  employeeList = () => {
+    connection.query(
+      "SELECT employee.first_name, employee.last_name, employee.role_id, role.title, role.id FROM employee INNER JOIN role ON employee.role_id=role.id;",
+      (err, res) => {
+        if (err) throw err;
+        console.table(res);
+      }
+    );
+  };
+
   updateEmployeeRole() {
     return inquirer
       .prompt([
         {
           name: "selectEmployee",
           type: "list",
-          message: "Select the Employee you want to update",
-          choices: employeeList(),
+          message: "Select the employee you want to update",
+          choices: this.employeeList(),
         },
 
         {
           name: "selectNewRole",
           type: "list",
-          message: "Select a role",
-          choices: roleList(),
+          message: "Select a new title for role",
+          choices: this.employeeList(),
         },
       ])
       .then((data) => {
@@ -136,34 +146,6 @@ class DB {
         ]);
       });
   }
-}
-
-let employeeArray = [];
-function employeeList() {
-  connection.query(
-    "SELECT employee.id, employee.first_name, employee.last_name FROM employee;",
-    function error(err, res) {
-      if (err) throw err;
-      for (let i = 0; i < res.length; i++) {
-        employeeArray.push(res[i].first_name);
-      }
-    }
-  );
-  return employeeArray;
-}
-
-let roleArray = [];
-function roleList() {
-  connection.query(
-    "SELECT role.id, role.title, role.salary, role.department_id FROM role;",
-    function (err, res) {
-      if (err) throw err;
-      for (let i = 0; i < res.length; i++) {
-        roleArray.push(res[i].title);
-      }
-    }
-  );
-  return roleArray;
 }
 
 module.exports = new DB(connection);
