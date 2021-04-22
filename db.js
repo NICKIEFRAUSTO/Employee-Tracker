@@ -106,6 +106,64 @@ class DB {
         });
       });
   }
+
+  updateEmployeeRole() {
+    return inquirer
+      .prompt([
+        {
+          name: "selectEmployee",
+          type: "list",
+          message: "Select the Employee you want to update",
+          choices: employeeList(),
+        },
+
+        {
+          name: "selectNewRole",
+          type: "list",
+          message: "Select a role",
+          choices: roleList(),
+        },
+      ])
+      .then((data) => {
+        return this.connection.query("UPDATE employee SET ? WHERE ?", [
+          {
+            role_id: data.selectNewRole,
+          },
+
+          {
+            first_name: data.selectEmployee,
+          },
+        ]);
+      });
+  }
+}
+
+let employeeArray = [];
+function employeeList() {
+  connection.query(
+    "SELECT employee.id, employee.first_name, employee.last_name FROM employee;",
+    function error(err, res) {
+      if (err) throw err;
+      for (let i = 0; i < res.length; i++) {
+        employeeArray.push(res[i].first_name);
+      }
+    }
+  );
+  return employeeArray;
+}
+
+let roleArray = [];
+function roleList() {
+  connection.query(
+    "SELECT role.id, role.title, role.salary, role.department_id FROM role;",
+    function (err, res) {
+      if (err) throw err;
+      for (let i = 0; i < res.length; i++) {
+        roleArray.push(res[i].title);
+      }
+    }
+  );
+  return roleArray;
 }
 
 module.exports = new DB(connection);

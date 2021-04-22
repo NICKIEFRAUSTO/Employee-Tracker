@@ -24,9 +24,7 @@ function start() {
           "Add a department",
           "Add a role",
           "Add an employee",
-          "Update an employee",
-          "Remove an employee",
-          "View the total budget per department",
+          "Update an employee role",
           "Exit",
         ],
       },
@@ -61,16 +59,8 @@ function start() {
           addEmployee();
           break;
 
-        case "Update an employee":
-          updateEmployee();
-          break;
-
-        case "Remove an employee":
-          removeEmployee();
-          break;
-
-        case "View the total budget per department":
-          viewBudget();
+        case "Update an employee role":
+          updateEmp();
           break;
 
         case "Exit":
@@ -115,6 +105,13 @@ async function addEmployee() {
   console.table(employee);
   start();
 }
+
+async function updateEmp() {
+  const empRole = await db.updateEmployeeRole();
+  console.table(empRole);
+  start();
+}
+
 // updateEmployee()
 // removeEmployee()
 // viewBudget()
